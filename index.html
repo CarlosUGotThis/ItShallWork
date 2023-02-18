@@ -3,21 +3,6 @@
   <head>
     <meta charset="utf-8">
     <title>Speech Transcription</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-      /* Styles for screens less than 600px wide */
-      @media (max-width: 600px) {
-        body {
-          font-size: 16px;
-        }
-        h1 {
-          font-size: 24px;
-        }
-        p {
-          font-size: 16px;
-        }
-      }
-    </style>
   </head>
   <body>
     <h1>Speech Transcription</h1>
@@ -30,7 +15,7 @@
     <div id="transcription"></div>
 
     <script>
-      const recognition = new webkitSpeechRecognition() || SpeechRecognition;
+      const recognition = new webkitSpeechRecognition();
       recognition.continuous = true;
       recognition.interimResults = true;
 
@@ -91,4 +76,14 @@
       });
 
       document.getElementById('copy-btn').addEventListener('click', () => {
-        const
+        const transcriptionElement = document.getElementById('transcription');
+        const range = document.createRange();
+        range.selectNode(transcriptionElement);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+      });
+    </script>
+  </body>
+</html>
